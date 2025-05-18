@@ -1,5 +1,3 @@
-// import { CargoShip } from "./spaceship";
-
 import { Mission } from "./mission";
 
 function ShowMissions(): Mission[] {
