@@ -4,9 +4,9 @@ import { AutomaticShip, CargoShip, FastShip, LightShip, Spaceship } from "./spac
 import { randomInstance } from "./utils";
 
 export class Mission{
-    spaceship: Spaceship
-    planet: Planet
-    load: Load
+    public readonly spaceship: Spaceship
+    public readonly planet: Planet
+    public readonly load: Load
 
     constructor() {
         const spaceshipTypes = [new CargoShip(), new LightShip(), new FastShip(),new AutomaticShip( )]
@@ -18,7 +18,7 @@ export class Mission{
         this.load = randomInstance(loadType)
     }
 
-    Viability(): string {
+    status(): string {
         if (this.spaceship.CanTransport(this.load)) {
             if (this.spaceship.CanGoTo(this.planet)){
                 if (this.planet.CanAccept(this.load)) {
@@ -28,19 +28,21 @@ export class Mission{
         } return `${this.spaceship.Type()} failed to deliver "${this.load.Type()}(${this.load.weight}KG)": exceeds capacity`
     }
 
-    ShowMission(): string {
+    loadSummary(): string {
+        const status = this.planet.CanAccept(this.load) && this.spaceship.CanTransport(this.load) && (this.spaceship.CanGoTo(this.planet)) ? "Shielded" : "Unshielded"
+        const out = `${this.load.Type()} | ${this.load.weight} | ${status}`
+        return out
+    }
+
+    PlanetSumary(): string {
+        return `${this.planet.Type()}`
+    }
+
+    showMission(): string {
         const title = `Mission: ${this.spaceship.Type()} -> ${this.planet.Type()}`
         const spaceship = `Assigned spacecraft: ${this.spaceship.Type()} | Fuel: ${this.spaceship.max_fuel} | Capacity: ${this.spaceship.weight_capacity}KG`
-        const status = this.Viability()
+        const status = this.status()
 
-        return `${title.toUpperCase()} \n${spaceship} \n${status}`
-    }
-
-    ShowCargoSummary(): string {
-        return "string"
-    }
-
-    ShowPlanetsVisited(): string {
-        return "string"
+        return `${title.toUpperCase()} \n${spaceship} \n${status} \n`
     }
 }

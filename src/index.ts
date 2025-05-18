@@ -2,8 +2,35 @@
 
 import { Mission } from "./mission";
 
-// const teste = new CargoShip()
-// teste
+function ShowMissions(): Mission[] {
+    const missions = []
+    for (let i = 0; i < 5; i++) {
+        const mission = new Mission
+        console.log(mission.showMission())
+        missions.push(mission)
+    }
+    return missions
+}
 
-const teste1 = new Mission
-console.log(teste1.ShowMission())
+function ShowLoads(missions: Mission[]): void {
+    console.log('LOADS SUMMARY')
+    for (const mission of missions) {
+        console.log(mission.loadSummary())
+    }
+}
+
+function ShowPlanets(missions: Mission[]): void {
+    console.log("\nPLANETS VISITED")
+    for (const mission of missions) {
+        console.log(mission.PlanetSumary())
+    }
+}
+
+const missions = ShowMissions()
+const loads = ShowLoads(missions)
+const planets = ShowPlanets(missions)
+
+
+
+
+

@@ -12,8 +12,6 @@ export abstract class Spaceship{
         this.fuel_consumption = fuel_consumption
     }
 
-    abstract Type(): string
-
     CanTransport(load: Load): boolean {
         if (load.weight <= this.weight_capacity) {
             return true
@@ -27,7 +25,7 @@ export abstract class Spaceship{
         } return false
     }
 
-    
+    abstract Type(): string
 }
 
 export class CargoShip extends Spaceship{
